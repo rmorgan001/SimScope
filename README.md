@@ -48,7 +48,7 @@ ACME.MyDriver.Server
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+In the installer directory are the files to create a deployment executable using Inno Setup.  Review the .iss script file for paths.
 
 ## Built With
 
@@ -64,7 +64,7 @@ Please read [CONTRIBUTING.md](https://github.com/rmorgan001/SimScope/blob/master
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+
 
 ## Authors
 
