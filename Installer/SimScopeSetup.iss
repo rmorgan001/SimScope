@@ -5,7 +5,7 @@ AppVerName=ASCOM SimScope 1.0.0.0
 AppVersion=1.0.0.0
 VersionInfoVersion=1.0.0.0
 OutputBaseFilename="ASCOMSimScope1000Setup"
-AppID={{0ff78bd6-6149-4536-9252-3da68b94f7c2}
+AppID={{BCC86032-6F0A-4544-9A8B-D173ECAFF2A8}
 AppName=ASCOM SimScope
 AppPublisher=Robert Morgan <robert.morgan.e@gmail.com>
 AppPublisherURL=mailto:robert.morgan.e@gmail.com
@@ -37,7 +37,7 @@ Name: "{cf}\ASCOM\Uninstall\Telescope\SimScope\Drivers\"
 Source: "C:\Users\Rob\source\repos\SimScope\Builds\Release\*.*"; DestDir: "{app}"
 Source: "C:\Users\Rob\source\repos\SimScope\Builds\Release\Drivers\*.*"; DestDir: "{app}\Drivers";
 ; Require a read-me to appear after installation, maybe driver's Help doc
-; Source: "C:\Users\Rob\source\repos\GSSolution\Manuals\SimScope.pdf"; DestDir: "{app}"; Flags: isreadme
+; Source: "C:\Users\Rob\source\repos\SimScope\Manuals\SimScope.pdf"; DestDir: "{app}"; Flags: isreadme
 ; TODO: Add other files needed by your driver here (add subfolders above)
 
 [Icons]
