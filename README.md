@@ -9,7 +9,7 @@ SimScope is a C# ASCOM telescope driver for use with astronomy software.  Modele
 * Benchmarks - Console application for using the BenchmarkDotNet performance library to perform basic performance testing.
 * Mount - Class Library that contains the communication command set of actions, Queues for command executions and responses, and the                simulator that mimics a mount.
 * Principles - Class Library that contains a number of fundamental methods including Coordinates, Conversions, HiResoulution dates,               julian dates, Timers, Time, and unit functions.
-* SimServer - WPF application that run the ASCOM local server.
+* SimServer - WPF application that runs the ASCOM local server.
 * Unit Test - basic unit tests.
 
 ### Prerequisites
@@ -45,22 +45,6 @@ ACME.MyDriver.Server
 8. Check your App.config and App.xaml for namespace changes.
 9. After sucessful build, register your exe with ASCOM Run "ACME.MyDriver.exe /register" from an adminstrator command prompt.
 10. If it does not show up in the ASCOM Chooser, unregister using "ACME.MyDriver.exe /unregister" fix the problem then re-register again.
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
 
 ## Deployment
 
