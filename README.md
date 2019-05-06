@@ -52,7 +52,7 @@ ACME.MyDriver.Server
 
 ## Deployment
 
-In the installer directory are the files to create a deployment executable using Inno Setup.  Review the .iss script file for paths.
+In the installer directory are the files to create a deployment executable using Inno Setup.  Review the .iss script file for paths and change the GUID.
 
 ## Built With
 
