@@ -18,7 +18,7 @@ Install the ASCOM platform and developer tools located at https://ascom-standard
 
 ### Installing
 
-To run SimScope download and build the solition.  Your option to remove the Benchmarks and Unit Test projects. they are not needed to run SimScope. After a sucessful debug build you must register the COM objects with ASCOM.  To do this navigate to the debug build directory and locate SimServer.exe.  Run SimServer.exe /register from a command prompt with adminstrator privedledges.  This will register SimServer with ASCOM.  The driver "ASCOM SimScope Telescope" will show up in the ASCOM chooser when selecting a driver from your astronomy software.  You can also test with some of the installed ASCOM tools such as Conform, Profile, or Diagnostics. 
+To run SimScope download and build the solution.  Your option to remove the Benchmarks and Unit Test projects. they are not needed to run SimScope. After a sucessful debug build you must register the COM objects with ASCOM.  To do this navigate to the debug build directory and locate SimServer.exe.  Run SimServer.exe /register from a command prompt with adminstrator privedledges.  This will register SimServer with ASCOM.  The driver "ASCOM SimScope Telescope" will show up in the ASCOM chooser when selecting a driver from your astronomy software.  You can also test with some of the installed ASCOM tools such as Conform, Profile, or Diagnostics. 
 
 ```
 Run SimServer.exe /register from an adminstrator command prompt
@@ -56,6 +56,7 @@ Add additional notes about how to deploy this on a live system
 * .Net Framework 4.6.1
 * BenchmarkDotNet version="0.11.5" nuget package https://github.com/dotnet/BenchmarkDotNet
 * ASCOM platform and developer tools
+* Inno Setup Compiler version 5.5.8 http://www.innosetup.com
 
 ## Contributing
 
