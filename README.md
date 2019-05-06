@@ -30,7 +30,8 @@ Run SimServer.exe /register from an adminstrator command prompt
 If you want to use this project to create your own telescope driver there are a number of steps needed.
 1. Recommend to copy the solution to another work location
 2. Remove the Benchmarks and Unit Projects, unless you wan to keep them.
-3. Change all the project names and namespaces to new names. I recommend you keep the word ASCOM as the first part of the driver project.  Preface the other project names with your own.
+3. Change all the project names and namespaces to new names. I recommend you keep the word ASCOM as the first part of the driver project.  Preface the other project names with your own.  
+4. Setup the project references and usings with new names.
 
 ```
 ASCOM.MyDriver.Telescope
@@ -38,12 +39,12 @@ ACME.MyDriver.Mount
 ACME.MyDriver.Principles
 ACME.MyDriver.Server
 ```
-4. Search solution and replace all the GUIDS with new ones except for those in the IClassFactory.cs file
-5. Modify all the AssemblyInfo.cs with your information
-6. In ASCOM.SimScope.Telescope/Telescope.cs change the ServedClassName and ProgId attributes to match your new project name.
-7. Check your App.config and App.xaml for namespace changes.
-8. After sucessful build, register your exe with ASCOM Run "ACME.MyDriver.exe /register" from an adminstrator command prompt.
-9. If it does not show up in the ASCOM Chooser, unregister using "ACME.MyDriver.exe /unregister" fix the problem then re-register again.
+5. Search solution and replace all the GUIDS with new ones except for those in the IClassFactory.cs file
+6. Modify all the AssemblyInfo.cs with your information
+7. In ASCOM.SimScope.Telescope/Telescope.cs change the ServedClassName and ProgId attributes to match your new project name.
+8. Check your App.config and App.xaml for namespace changes.
+9. After sucessful build, register your exe with ASCOM Run "ACME.MyDriver.exe /register" from an adminstrator command prompt.
+10. If it does not show up in the ASCOM Chooser, unregister using "ACME.MyDriver.exe /unregister" fix the problem then re-register again.
 
 ### Break down into end to end tests
 
