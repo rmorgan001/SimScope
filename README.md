@@ -22,12 +22,10 @@ Give examples
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
+To run SimScope download and build the solition.  Your option to remove the Benchmarks and Unit Test projects. they are not needed to run SimScope. After a sucessful debug build you must register the COM objects with ASCOM.  To do this navigate to the debug build directory and locate SimServer.exe.  Run SimServer.exe /register from a command prompt with adminstrator privedledges.  This will register SimServer with ASCOM.  The driver "ASCOM SimScope Telescope" will show up in the ASCOM chooser when selecting a driver from your astronomy software.  You can also test with some of the installed ASCOM tools such as Conform, Profile, or Diagnostics. 
 
 ```
-Give the example
+Run SimServer.exe /register from an adminstrator command prompt
 ```
 
 And repeat
