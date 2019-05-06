@@ -28,7 +28,7 @@ To run SimScope download and build the solition.  Your option to remove the Benc
 Run SimServer.exe /register from an adminstrator command prompt
 ```
 
-And repeat
+![Alt text](Docs/Chooser.png?raw=true "Title")
 
 ```
 until finished
