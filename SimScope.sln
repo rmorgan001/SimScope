@@ -18,6 +18,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{669F3A92-002E-4F2E-8AB4-6E2D1715CDC6}"
 	ProjectSection(SolutionItems) = preProject
 		Installer\License.txt = Installer\License.txt
+		Installer\SimScopeSetup.iss = Installer\SimScopeSetup.iss
+		Installer\WizardImage.bmp = Installer\WizardImage.bmp
 	EndProjectSection
 EndProject
 Global
