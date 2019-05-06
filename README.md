@@ -1,6 +1,6 @@
 # SimScope - ASCOM Telescope Control Simulator
 
-SimScope is a C# ASCOM telescope driver for use with astronomy software.  Modeled after the ASCOM .Net Simulator this project uses the local server model or hub to control its own internal telescope mount. It is built using C#, WPF, and a variation of MVVM  
+SimScope is a C# ASCOM telescope driver for use with astronomy software.  Modeled after the ASCOM .Net Simulator this project uses the local server model or hub to control its own internal telescope mount. It is built using C#, WPF, and a variation of MVVM.  It's purpose is to help those that want to create their own mount drivers in understanding the fundamentals of telescope control. Included is a mount library that mimics a small set of mount commands and works in N-Hemi and S-Hemi observatory configurations.
 
 ## Solution Projects
 
@@ -13,7 +13,7 @@ SimScope is a C# ASCOM telescope driver for use with astronomy software.  Modele
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+You will need to install the ASCOM platform located at https://ascom-standards.org/Downloads/Index.htm
 
 ```
 Give examples
