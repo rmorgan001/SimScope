@@ -83,7 +83,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Robert Morgan** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Robert Morgan** - *Initial work* - https://github.com/rmorgan001
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
