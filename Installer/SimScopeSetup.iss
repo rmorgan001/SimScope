@@ -21,7 +21,7 @@ Compression=lzma
 SolidCompression=yes
 ; Put there by Platform if Driver Installer Support selected
 WizardImageFile="C:\Users\Rob\source\repos\SimScope\Installer\WizardImage.bmp"
-LicenseFile="C:\Users\Rob\source\repos\SimScope\Installer\licanse.txt"
+LicenseFile="C:\Users\Rob\source\repos\SimScope\Installer\license.txt"
 ; {cf}\ASCOM\Uninstall\Telescope folder created by Platform, always
 UninstallFilesDir="{cf}\ASCOM\Uninstall\Telescope\SimScope"
 
