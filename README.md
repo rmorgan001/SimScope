@@ -75,7 +75,7 @@ Add additional notes about how to deploy this on a live system
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://github.com/rmorgan001/SimScope/blob/master/Docs/Contributing) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](https://github.com/rmorgan001/SimScope/blob/master/Docs/Contributing.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
