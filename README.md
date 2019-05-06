@@ -3,6 +3,10 @@ SimScope is a C# ASCOM telescope driver for use with astronomy software.  Modele
 
 ![Alt text](Docs/SimScope.png?raw=true "SimScope")
 
+## Solution Info
+
+All settings or persisted data are not store in ASCOM Profile but stored in user settings along the window sizing information and window state.  Serial information is also stored but the application does not make a true serial connection to the simulator.  There are some included examples for serial port communications.  The solution does not have logging or error handeling so add your own or use external tools. 
+
 ## Solution Projects
 
 * ASCOM.SimScope.Telescope - COM/.Net Class Library implimenting the ASCOM device interface for V3 telescope driver.
