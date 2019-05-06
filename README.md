@@ -30,7 +30,7 @@ Run SimServer.exe /register from an adminstrator command prompt
 If you want to use this project to create your own telescope driver there are a number of steps needed.
 1. Recommend to copy the solution to another work location
 2. Remove the Benchmarks and Unit Projects, unless you wan to keep them.
-3. Change all the project names and namespaces to new names. I recommend you keep the word ASCOM as the first part of the driver project.  You Should probably preface the other project names with your own names.
+3. Change all the project names and namespaces to new names. I recommend you keep the word ASCOM as the first part of the driver project.  Preface the other project names with your own.
 
 ```
 ASCOM.MyDriver.Telescope
