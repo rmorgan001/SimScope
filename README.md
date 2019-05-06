@@ -1,7 +1,11 @@
 # SimScope - ASCOM Telescope Control Simulator
-SimScope is a C# ASCOM telescope driver for use with astronomy software.  Modeled after the ASCOM .Net Simulator this project uses the local server model or hub to control its own internal telescope mount. It is built using C#, WPF, and a variation of MVVM.  It's purpose is to help those that want to create their own mount drivers in understanding the fundamentals of telescope control. Included is a mount library that mimics a small set of mount commands and works in N-Hemi and S-Hemi observatory and axes configurations.
+SimScope is a multi-threaded C# ASCOM telescope driver for use with astronomy software.  Modeled after the ASCOM .Net Simulator this project uses the local server model or hub to control its own internal telescope mount. It is built using C#, WPF, and a variation of MVVM.  It's purpose is to help those that want to create their own mount drivers in understanding the fundamentals of telescope control. Included is a mount library that mimics a small set of mount commands and works in N-Hemi and S-Hemi observatory and axes configurations.
 
 ![Alt text](Docs/SimScope.png?raw=true "SimScope")
+
+## Solution Info
+
+All settings or persisted data are not store in ASCOM Profile but stored in user settings along the window sizing information and window state.  Serial information is also stored but the application does not make a true serial connection to the simulator.  There are some included examples for serial port communications.  The solution does not have logging or error handeling so add your own or use external tools. 
 
 ## Solution Projects
 
@@ -48,7 +52,7 @@ ACME.MyDriver.Server
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+In the installer directory are the files to create a deployment executable using Inno Setup.  Review the .iss script file for paths.
 
 ## Built With
 
@@ -64,7 +68,7 @@ Please read [CONTRIBUTING.md](https://github.com/rmorgan001/SimScope/blob/master
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+
 
 ## Authors
 
