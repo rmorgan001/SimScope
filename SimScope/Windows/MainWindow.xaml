@@ -1,0 +1,33 @@
+﻿<Window x:Class="SimServer.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:windows="clr-namespace:SimServer.Windows"
+        xmlns:uc="clr-namespace:SimServer.Controls"
+        xmlns:properties="clr-namespace:SimServer.Properties" Background="LightGray"
+        WindowStyle="ThreeDBorderWindow" ResizeMode="CanResizeWithGrip"
+        mc:Ignorable="d" FontSize="13" TextOptions.TextFormattingMode="Display"
+        d:DataContext="{d:DesignInstance windows:MainWindowVM, IsDesignTimeCreatable=True}"
+        WindowState="{Binding WindowState, Source={x:Static properties:Server.Default}, Mode=TwoWay}"
+        Height="{Binding WindowHeight, Source={x:Static properties:Server.Default}, Mode=TwoWay}" 
+        Width="{Binding WindowWidth, Source={x:Static properties:Server.Default}, Mode=TwoWay}"
+        Left="{Binding WindowLeft, Source={x:Static properties:Server.Default}, Mode=TwoWay}"
+        Top="{Binding WindowTop, Source={x:Static properties:Server.Default}, Mode=TwoWay}"
+        Closed="MainWindow_OnClosed"
+        Title="{Binding MountName}">
+    <Grid>
+        <TabControl SelectedIndex="{Binding SelectedTab}" Margin="5,5,5,5">
+            <TabItem DataContext="{Binding ViewModels[0]}" x:Name="TabTelescope" Header="Telescope" >
+                <AdornerDecorator>
+                    <uc:TelescopeV/>
+                </AdornerDecorator>
+            </TabItem>
+            <TabItem DataContext="{Binding ViewModels[1]}" x:Name="TabSettings" Header="Settings" >
+                <AdornerDecorator>
+                    <uc:SettingsV/>
+                </AdornerDecorator>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

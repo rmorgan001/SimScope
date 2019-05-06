@@ -1,0 +1,391 @@
+﻿<UserControl x:Class="SimServer.Controls.SettingsV"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SimServer.Controls"
+             xmlns:rules="clr-namespace:SimServer.Rules"
+             xmlns:deviceInterface="clr-namespace:ASCOM.DeviceInterface;assembly=ASCOM.DeviceInterfaces"
+             xmlns:domain="clr-namespace:SimServer.Domain"
+             xmlns:utilities="clr-namespace:ASCOM.Utilities;assembly=ASCOM.Utilities"
+             mc:Ignorable="d" Background="DarkGray"
+             d:DataContext="{d:DesignInstance local:SettingsVM, IsDesignTimeCreatable=True}">
+    <ScrollViewer  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center">Aperture Area:</Label>
+            <TextBox Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" ToolTip="ApertureArea" Height="20" Name="ApertureArea"
+                 Validation.ErrorTemplate="{StaticResource validationTemplate1}" Style="{StaticResource textBoxInError}">
+                <TextBox.Text>
+                    <Binding Path="ApertureArea" Mode="TwoWay" UpdateSourceTrigger="LostFocus">
+                        <Binding.ValidationRules>
+                            <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
+                            <rules:DoubleValidationRule ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <Button Grid.Column="2" Grid.Row="0" Height="20" Width="25" ToolTip="Reset" Click="ButtonBase_OnClick" Tag="ApertureArea">R</Button>
+            <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center">Aperture Dia:</Label>
+            <TextBox Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" ToolTip="ApertureDiameter"  Height="20" Name="ApertureDiameter"
+                 Validation.ErrorTemplate="{StaticResource validationTemplate1}" Style="{StaticResource textBoxInError}">
+                <TextBox.Text>
+                    <Binding Path="ApertureDiameter" Mode="TwoWay" UpdateSourceTrigger="LostFocus">
+                        <Binding.ValidationRules>
+                            <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
+                            <rules:DoubleValidationRule ValidatesOnTargetUpdated="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <Button Grid.Column="2" Grid.Row="1" Height="20" Width="25" ToolTip="Reset" Click="ButtonBase_OnClick" Tag="ApertureDiameter">R</Button>
+            <Label Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center">Focal Length:</Label>
+            <TextBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch" ToolTip="FocalLength"  Height="20" Name="FocalLength"
+                 Validation.ErrorTemplate="{StaticResource validationTemplate1}" Style="{StaticResource textBoxInError}">
+                <TextBox.Text>
+                    <Binding Path="FocalLength" Mode="TwoWay" UpdateSourceTrigger="LostFocus">
+                        <Binding.ValidationRules>
+                            <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
+                            <rules:DoubleValidationRule ValidatesOnTargetUpdated="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <Button Grid.Column="2" Grid.Row="2" Height="20" Width="25" ToolTip="Reset" Click="ButtonBase_OnClick" Tag="FocalLength">R</Button>
+            <Label Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center">King Rate:</Label>
+            <TextBox Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" ToolTip="KingRate"  Height="20" Name="KingRate"
+                 Validation.ErrorTemplate="{StaticResource validationTemplate1}" Style="{StaticResource textBoxInError}">
+                <TextBox.Text>
+                    <Binding Path="KingRate" Mode="TwoWay" UpdateSourceTrigger="LostFocus">
+                        <Binding.ValidationRules>
+                            <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
+                            <rules:DoubleValidationRule ValidatesOnTargetUpdated="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <Button Grid.Column="2" Grid.Row="3" Height="20" Width="25" ToolTip="Reset" Click="ButtonBase_OnClick" Tag="KingRate">R</Button>
+            <Label Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center">Lunar Rate:</Label>
+            <TextBox Grid.Column="1" Grid.Row="4" HorizontalAlignment="Stretch" ToolTip="LunarRate"  Height="20" Name="LunarRate"
+                 Validation.ErrorTemplate="{StaticResource validationTemplate1}" Style="{StaticResource textBoxInError}">
+                <TextBox.Text>
+                    <Binding Path="LunarRate" Mode="TwoWay" UpdateSourceTrigger="LostFocus">
+                        <Binding.ValidationRules>
+                            <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
+                            <rules:DoubleValidationRule ValidatesOnTargetUpdated="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <Button Grid.Column="2" Grid.Row="4" Height="20" Width="25" ToolTip="Reset" Click="ButtonBase_OnClick" Tag="LunarRate">R</Button>
+            <Label Grid.Column="0" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center">Sidereal Rate:</Label>
+            <TextBox Grid.Column="1" Grid.Row="5" HorizontalAlignment="Stretch" ToolTip="SiderealRate"  Height="20"  Name="SiderealRate"
+                 Validation.ErrorTemplate="{StaticResource validationTemplate1}" Style="{StaticResource textBoxInError}">
+                <TextBox.Text>
+                    <Binding Path="SiderealRate" Mode="TwoWay" UpdateSourceTrigger="LostFocus">
+                        <Binding.ValidationRules>
+                            <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
+                            <rules:DoubleValidationRule ValidatesOnTargetUpdated="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <Button Grid.Column="2" Grid.Row="5" Height="20" Width="25" ToolTip="Reset" Click="ButtonBase_OnClick" Tag="SiderealRate">R</Button>
+            <Label Grid.Column="0" Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Center">Solar Rate:</Label>
+            <TextBox Grid.Column="1" Grid.Row="6" HorizontalAlignment="Stretch" ToolTip="SolarRate"  Height="20" Name="SolarRate"
+                 Validation.ErrorTemplate="{StaticResource validationTemplate1}" Style="{StaticResource textBoxInError}">
+                <TextBox.Text>
+                    <Binding Path="SolarRate" Mode="TwoWay" UpdateSourceTrigger="LostFocus">
+                        <Binding.ValidationRules>
+                            <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
+                            <rules:DoubleValidationRule ValidatesOnTargetUpdated="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <Button Grid.Column="2" Grid.Row="6" Height="20" Width="25" ToolTip="Reset" Click="ButtonBase_OnClick" Tag="SolarRate">R</Button>
+            <Label Grid.Column="0" Grid.Row="7" HorizontalAlignment="Right" VerticalAlignment="Center">Latitude:</Label>
+            <TextBox Grid.Column="1" Grid.Row="7" HorizontalAlignment="Stretch" ToolTip="Latitude"  Height="20" Name="Latitude"
+                 Validation.ErrorTemplate="{StaticResource validationTemplate1}" Style="{StaticResource textBoxInError}">
+                <TextBox.Text>
+                    <Binding Path="Latitude" Mode="TwoWay" UpdateSourceTrigger="LostFocus">
+                        <Binding.ValidationRules>
+                            <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
+                            <rules:DoubleValidationRule ValidatesOnTargetUpdated="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <Button Grid.Column="2" Grid.Row="7" Height="20" Width="25" ToolTip="Reset" Click="ButtonBase_OnClick" Tag="Latitude">R</Button>
+            <Label Grid.Column="0" Grid.Row="8" HorizontalAlignment="Right" VerticalAlignment="Center">Longitude:</Label>
+            <TextBox Grid.Column="1" Grid.Row="8" HorizontalAlignment="Stretch" ToolTip="Longitude"  Height="20" Name="Longitude"
+                 Validation.ErrorTemplate="{StaticResource validationTemplate1}" Style="{StaticResource textBoxInError}">
+                <TextBox.Text>
+                    <Binding Path="Longitude" Mode="TwoWay" UpdateSourceTrigger="LostFocus">
+                        <Binding.ValidationRules>
+                            <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
+                            <rules:DoubleValidationRule ValidatesOnTargetUpdated="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <Button Grid.Column="2" Grid.Row="8" Height="20" Width="25" ToolTip="Reset" Click="ButtonBase_OnClick" Tag="Longitude">R</Button>
+            <Label Grid.Column="0" Grid.Row="9" HorizontalAlignment="Right" VerticalAlignment="Center">Elevation:</Label>
+            <TextBox Grid.Column="1" Grid.Row="9" HorizontalAlignment="Stretch" ToolTip="Elevation in Meters"  Height="20" Name="Elevation"
+                 Validation.ErrorTemplate="{StaticResource validationTemplate1}" Style="{StaticResource textBoxInError}">
+                <TextBox.Text >
+                    <Binding Path="Elevation" Mode="TwoWay" UpdateSourceTrigger="LostFocus">
+                        <Binding.ValidationRules>
+                            <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True" ValidationStep="RawProposedValue"/>
+                            <rules:DoubleValidationRule ValidatesOnTargetUpdated="True" ValidationStep="RawProposedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <Button Grid.Column="2" Grid.Row="9" Height="20" Width="25" ToolTip="Reset" Click="ButtonBase_OnClick" Tag="Elevation">R</Button>
+            <Label Grid.Column="0" Grid.Row="10" HorizontalAlignment="Right" VerticalAlignment="Center">RA Guiderate:</Label>
+            <ComboBox Grid.Column="1" Grid.Row="10" MinWidth="10" Height="20" ToolTip="Percentage of tracking rate" ItemsSource="{Binding GuideRatesX}">
+                <ComboBox.SelectedItem>
+                    <Binding Path="GuideRateXPer" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </ComboBox.SelectedItem>
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+            <Button Grid.Column="2" Grid.Row="10" Height="20" Width="25" ToolTip="Reset" Command="{Binding ClickResetCommand}" CommandParameter="GuideRateXPer" >R</Button>
+            <Label Grid.Column="0" Grid.Row="11" HorizontalAlignment="Right" VerticalAlignment="Center">Dec Guiderate:</Label>
+            <ComboBox Grid.Column="1" Grid.Row="11" MinWidth="10" Height="20" ToolTip="Percentage of tracking rate" ItemsSource="{Binding GuideRatesY}">
+                <ComboBox.SelectedItem>
+                    <Binding Path="GuideRateYPer" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </ComboBox.SelectedItem>
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+            <Button Grid.Column="2" Grid.Row="11" Height="20" Width="25" ToolTip="Reset" Command="{Binding ClickResetCommand}" CommandParameter="GuideRateYPer" >R</Button>
+            <Label Grid.Column="0" Grid.Row="12" HorizontalAlignment="Right" VerticalAlignment="Center">Meridian Limit:</Label>
+            <ComboBox Grid.Column="1" Grid.Row="12" MinWidth="10" Height="20" ToolTip="Over Meridian Limit" ItemsSource="{Binding HourAngleLimits}">
+                <ComboBox.SelectedItem>
+                    <Binding Path="HourAngleLimit" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </ComboBox.SelectedItem>
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+            <Button Grid.Column="2" Grid.Row="12" Height="20" Width="25" ToolTip="Reset" Command="{Binding ClickResetCommand}" CommandParameter="HourAngleLimit" >R</Button>
+            <Label Grid.Column="0" Grid.Row="13" HorizontalAlignment="Right" VerticalAlignment="Center">Slew Rate d/arc:</Label>
+            <ComboBox Grid.Column="1" Grid.Row="13" MinWidth="10" Height="20" ToolTip="Button Max Slew Rate" ItemsSource="{Binding MaxSlewRates}">
+                <ComboBox.SelectedItem>
+                    <Binding Path="MaximumSlewRate" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </ComboBox.SelectedItem>
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+            <Button Grid.Column="2" Grid.Row="13" Height="20" Width="25" ToolTip="Reset" Command="{Binding ClickResetCommand}" CommandParameter="MaximumSlewRate" >R</Button>
+            <Label Grid.Column="0" Grid.Row="14" HorizontalAlignment="Right" VerticalAlignment="Center">Temp C°:</Label>
+            <ComboBox Grid.Column="1" Grid.Row="14" MinWidth="10" Height="20" ToolTip="Local Celsius Temperature" ItemsSource="{Binding Temperatures}">
+                <ComboBox.SelectedItem>
+                    <Binding Path="Temperature" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </ComboBox.SelectedItem>
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+            <Button Grid.Column="2" Grid.Row="14" Height="20" Width="25" ToolTip="Reset" Command="{Binding ClickResetCommand}" CommandParameter="Temperature" >R</Button>
+            <Label Grid.Column="0" Grid.Row="15" HorizontalAlignment="Right" VerticalAlignment="Center">Coordinates:</Label>
+            <ComboBox Grid.Column="1" Grid.Row="15" MinWidth="10" Height="20" ToolTip="Accepted Coordinate Type" 
+                      ItemsSource="{Binding Source={domain:EnumBindingSource {x:Type deviceInterface:EquatorialCoordinateType}}}">
+                <ComboBox.SelectedItem>
+                    <Binding Path="EquatorialCoordinateType" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </ComboBox.SelectedItem>
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+            <Button Grid.Column="2" Grid.Row="15" Height="20" Width="25" ToolTip="Reset" Command="{Binding ClickResetCommand}" CommandParameter="EquatorialCoordinateType" >R</Button>
+            <Label Grid.Column="0" Grid.Row="16" HorizontalAlignment="Right" VerticalAlignment="Center">Mount Type:</Label>
+            <ComboBox Grid.Column="1" Grid.Row="16" MinWidth="10" Height="20" ToolTip="Alignment Mode" 
+                      ItemsSource="{Binding Source={domain:EnumBindingSource {x:Type deviceInterface:AlignmentModes}}}">
+                <ComboBox.SelectedItem>
+                    <Binding Path="AlignmentMode" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </ComboBox.SelectedItem>
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+            <Button Grid.Column="2" Grid.Row="16" Height="20" Width="25" ToolTip="Reset" Command="{Binding ClickResetCommand}" CommandParameter="AlignmentMode" >R</Button>
+            <Label Grid.Column="0" Grid.Row="17" HorizontalAlignment="Right" VerticalAlignment="Center">Tracking Rate:</Label>
+            <ComboBox Grid.Column="1" Grid.Row="17" MinWidth="10" Height="20" ToolTip="Tracking Rate" 
+                      ItemsSource="{Binding Source={domain:EnumBindingSource {x:Type deviceInterface:DriveRates}}}">
+                <ComboBox.SelectedItem>
+                    <Binding Path="TrackingRate" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </ComboBox.SelectedItem>
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+            <Button Grid.Column="2" Grid.Row="17" Height="20" Width="25" ToolTip="Reset" Command="{Binding ClickResetCommand}" CommandParameter="TrackingRate" >R</Button>
+
+            <Label Grid.Column="0" Grid.Row="18" HorizontalAlignment="Right" VerticalAlignment="Center">DTR Enable:</Label>
+            <CheckBox  Grid.Column="1" Grid.Row="18" VerticalAlignment="Center" ToolTip="On/Off"
+                          IsChecked="{Binding DtrEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <Button Grid.Column="2" Grid.Row="18" Height="20" Width="25" ToolTip="Reset" Command="{Binding ClickResetCommand}" CommandParameter="DtrEnable" >R</Button>
+            <Label Grid.Column="0" Grid.Row="19" HorizontalAlignment="Right" VerticalAlignment="Center">RTS Enable:</Label>
+            <CheckBox  Grid.Column="1" Grid.Row="19" VerticalAlignment="Center" ToolTip="On/Off"
+                           IsChecked="{Binding RTSEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <Button Grid.Column="2" Grid.Row="19" Height="20" Width="25" ToolTip="Reset" Command="{Binding ClickResetCommand}" CommandParameter="RTSEnable" >R</Button>
+            <Label Grid.Column="0" Grid.Row="20" HorizontalAlignment="Right" VerticalAlignment="Center">Data Bits:</Label>
+            <ComboBox Grid.Column="1" Grid.Row="20" MinWidth="10" Height="20" ToolTip="Data Bit" ItemsSource="{Binding DataBits}">
+                <ComboBox.SelectedItem>
+                    <Binding Path="DataBit" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </ComboBox.SelectedItem>
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+            <Button Grid.Column="2" Grid.Row="20" Height="20" Width="25" ToolTip="Reset" Command="{Binding ClickResetCommand}" CommandParameter="DataBit" >R</Button>
+            <Label Grid.Column="0" Grid.Row="21" HorizontalAlignment="Right" VerticalAlignment="Center">Baud Rate:</Label>
+            <ComboBox Grid.Column="1" Grid.Row="21" MinWidth="10" Height="20" ToolTip="Baud Rate" 
+                      ItemsSource="{Binding Source={domain:EnumBindingSource {x:Type utilities:SerialSpeed}}}">
+                <ComboBox.SelectedItem>
+                    <Binding Path="BaudRate" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </ComboBox.SelectedItem>
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+            <Button Grid.Column="2" Grid.Row="21" Height="20" Width="25" ToolTip="Reset" Command="{Binding ClickResetCommand}" CommandParameter="BaudRate" >R</Button>
+            <Label Grid.Column="0" Grid.Row="22" HorizontalAlignment="Right" VerticalAlignment="Center">HandShake:</Label>
+            <ComboBox Grid.Column="1" Grid.Row="22" MinWidth="10" Height="20" ToolTip="HandShake" 
+                      ItemsSource="{Binding Source={domain:EnumBindingSource {x:Type utilities:SerialHandshake}}}">
+                <ComboBox.SelectedItem>
+                    <Binding Path="HandShake" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </ComboBox.SelectedItem>
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+            <Button Grid.Column="2" Grid.Row="22" Height="20" Width="25" ToolTip="Reset" Command="{Binding ClickResetCommand}" CommandParameter="HandShake" >R</Button>
+            <Label Grid.Column="0" Grid.Row="23" HorizontalAlignment="Right" VerticalAlignment="Center">Com Port:</Label>
+            <ComboBox Grid.Column="1" Grid.Row="23" MinWidth="10" Height="20" ToolTip="Com Ports" ItemsSource="{Binding ComPorts}">
+                <ComboBox.SelectedItem>
+                    <Binding Path="ComPort" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </ComboBox.SelectedItem>
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+            <Button Grid.Column="2" Grid.Row="23" Height="20" Width="25" ToolTip="Reset" Command="{Binding ClickResetCommand}" CommandParameter="ComPort" >R</Button>
+            <StackPanel Grid.Column="0" Grid.Row="24" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Height="20" Width="100" Command="{Binding ClickSetParkCommand}" HorizontalAlignment="Center">Set Park Now</Button>
+                <Button Height="20" Width="100" Margin="5,0,0,0" Command="{Binding ClickSaveCloseCommand}" HorizontalAlignment="Center">Save / Close</Button>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</UserControl>
