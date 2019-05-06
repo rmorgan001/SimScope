@@ -65,7 +65,7 @@ Add additional notes about how to deploy this on a live system
 
 * Visual Studio 2017 Community edition
 * .Net Framework 4.6.1
-* BenchmarkDotNet version="0.11.5" nuget package
+* BenchmarkDotNet version="0.11.5" nuget package https://github.com/dotnet/BenchmarkDotNet
 * ASCOM platform and developer tools
 
 ## Contributing
