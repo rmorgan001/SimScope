@@ -1,10 +1,16 @@
 # SimScope - ASCOM Telescope Control Simulator
 
-One Paragraph of project description goes here
+SimScope is a C# ASCOM telescope driver for use with astronomy software.  Modeled after the ASCOM .Net Simulator this project uses the local server model or hub to control its own internal telescope mount. It is built using C#, WPF, and a variation of MVVM  
 
-## Getting Started
+## Solution Projects
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+* ASCOM.SimScope.Telescope - COM/.Net Class Library implimenting the ASCOM device interface for V3 telescope driver.
+* Benchmarks - Console application for using the BenchmarkDotNet performance library to perform basic performance testing.
+* Mount - Class Library that contains the communication command set of actions, Queues for command executions and responses, and the                simulator that mimics a mount.
+* Principles - Class Library that contains a number of fundamental methods: includes Coordinates, Conversions, HiResoulution dates,               julian dates, Timers, Time, and unit functions.
+* SimServer - WPF application that run the ASCOM local server.
+* Unit Test - basic unit tests.
+
 
 ### Prerequisites
 
@@ -58,9 +64,9 @@ Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* Visual Studio 2017 Community edition
+* .Net Framework 4.6.1
+* BenchmarkDotNet version="0.11.5"
 
 ## Contributing
 
