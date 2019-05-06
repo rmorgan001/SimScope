@@ -1,5 +1,5 @@
 # SimScope - ASCOM Telescope Control Simulator
-SimScope is a C# ASCOM telescope driver for use with astronomy software.  Modeled after the ASCOM .Net Simulator this project uses the local server model or hub to control its own internal telescope mount. It is built using C#, WPF, and a variation of MVVM.  It's purpose is to help those that want to create their own mount drivers in understanding the fundamentals of telescope control. Included is a mount library that mimics a small set of mount commands and works in N-Hemi and S-Hemi observatory configurations.
+SimScope is a C# ASCOM telescope driver for use with astronomy software.  Modeled after the ASCOM .Net Simulator this project uses the local server model or hub to control its own internal telescope mount. It is built using C#, WPF, and a variation of MVVM.  It's purpose is to help those that want to create their own mount drivers in understanding the fundamentals of telescope control. Included is a mount library that mimics a small set of mount commands and works in N-Hemi and S-Hemi observatory and axes configurations.
 
 ![Alt text](Docs/SimScope.png?raw=true "SimScope")
 
@@ -27,18 +27,27 @@ To run SimScope download and build the solition.  Your option to remove the Benc
 ```
 Run SimServer.exe /register from an adminstrator command prompt
 ```
-
 ![Alt text](Docs/Chooser.png?raw=true "Chooser")
 
+## Creating your own new solution
+
+If you want to use this project to create your own telescope driver there are a number of steps needed.
+1. Recommend to copy the solution to another work location
+2. Remove the Benchmarks and Unit Projects, unless you wan to keep them.
+3. Change all the project names and namespaces to new names. I recommend you keep the word ASCOM as the first part of the driver project.  You Should probably preface the other project names with your own names.
+
 ```
-until finished
+ASCOM.MyDriver.Telescope
+ACME.MyDriver.Mount
+ACME.MyDriver.Principles
+ACME.MyDriver.Server
 ```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
+4. Search solution and replace all the GUIDS with new ones except for those in the IClassFactory.cs file
+5. Modify all the AssemblyInfo.cs with your information
+6. In ASCOM.SimScope.Telescope/Telescope.cs change the ServedClassName and ProgId attributes to match your new project name.
+7. Check your App.config and App.xaml for namespace changes.
+8. After sucessful build Register your exe with ASCOM Run "ACME.MyDriver.exe /register" from an adminstrator command prompt.
+9. If it does not show up in the ASCOM Chooser, unregister using "ACME.MyDriver.exe /unregister" fix the problem then re-register again.
 
 ### Break down into end to end tests
 
