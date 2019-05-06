@@ -25,7 +25,7 @@ Run SimServer.exe /register from an adminstrator command prompt
 ```
 ![Alt text](Docs/Chooser.png?raw=true "Chooser")
 
-## Creating your own new solution
+## Creating a new driver
 
 If you want to use this project to create your own telescope driver there are a number of steps needed.
 1. Recommend to copy the solution to another work location
@@ -42,7 +42,7 @@ ACME.MyDriver.Server
 5. Modify all the AssemblyInfo.cs with your information
 6. In ASCOM.SimScope.Telescope/Telescope.cs change the ServedClassName and ProgId attributes to match your new project name.
 7. Check your App.config and App.xaml for namespace changes.
-8. After sucessful build Register your exe with ASCOM Run "ACME.MyDriver.exe /register" from an adminstrator command prompt.
+8. After sucessful build, register your exe with ASCOM Run "ACME.MyDriver.exe /register" from an adminstrator command prompt.
 9. If it does not show up in the ASCOM Chooser, unregister using "ACME.MyDriver.exe /unregister" fix the problem then re-register again.
 
 ### Break down into end to end tests
