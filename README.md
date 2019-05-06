@@ -14,11 +14,7 @@ SimScope is a C# ASCOM telescope driver for use with astronomy software.  Modele
 
 ### Prerequisites
 
-You will need to install the ASCOM platform located at https://ascom-standards.org/Downloads/Index.htm
-
-```
-Give examples
-```
+Install the ASCOM platform and developer tools located at https://ascom-standards.org/Downloads/Index.htm
 
 ### Installing
 
