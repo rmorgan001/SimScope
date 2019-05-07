@@ -37,7 +37,7 @@
         <TextBox Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="0"  IsReadOnly="True" Background="Transparent" FontWeight="Bold" Text="{Binding Lst}"/>
         <TextBox Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" BorderThickness="0" IsReadOnly="True" Background="Transparent">Right Ascension :</TextBox>
         <TextBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center"  BorderThickness="0" IsReadOnly="True" Background="Transparent" FontWeight="Bold" Text="{Binding Ra}"/>
-        <TextBox Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" BorderThickness="0" IsReadOnly="True" Background="Transparent">Declication :</TextBox>
+        <TextBox Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" BorderThickness="0" IsReadOnly="True" Background="Transparent">Declination :</TextBox>
         <TextBox Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center"  BorderThickness="0" IsReadOnly="True" Background="Transparent" FontWeight="Bold" Text="{Binding Dec}"/>
         <TextBox Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" BorderThickness="0" IsReadOnly="True" Background="Transparent">Azimuth :</TextBox>
         <TextBox Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center"  BorderThickness="0" IsReadOnly="True" Background="Transparent" FontWeight="Bold" Text="{Binding Az}"/>
