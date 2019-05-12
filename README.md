@@ -3,6 +3,8 @@ SimScope is a multi-threaded C# ASCOM telescope driver for use with astronomy so
 
 ![Alt text](Docs/SimScope.png?raw=true "SimScope")
 
+You can download the executable version at https://groups.yahoo.com/neo/groups/GreenSwamp/info.  Its located in the files section under the SimScope folder.
+
 ## Solution Info
 
 All settings or persisted data are not store in ASCOM Profile but stored in user settings along the window sizing information and window state.  Serial information is also stored but the application does not make a true serial connection to the simulator.  There are some included examples for serial port communications.  The solution does not have logging or error handling so add your own or use external tools. 
