@@ -25,7 +25,7 @@ namespace SimServer.Windows
             OpenSetupDialog = Scope.OpenSetupDialog;
 
             // Name from mount data
-            MountName = Scope.Capabilities.MountName;
+            MountName = Scope.MountName;
 
             //viewmodels for selected tab
             ViewModels = new ObservableCollection<object>
@@ -98,9 +98,6 @@ namespace SimServer.Windows
                         {
                             case "OpenSetupDialog":
                                 OpenSetupDialog = Scope.OpenSetupDialog;
-                                break;
-                            case "Capabilities":
-                                MountName = Scope.Capabilities.MountName;
                                 break;
                         }
                     }, _cts);

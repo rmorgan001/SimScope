@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections;
+using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -459,7 +460,7 @@ namespace ASCOM.SimScope.Telescope
             Scope.GoToHome();
             while (Scope.SlewState == SlewType.SlewHome || Scope.SlewState == SlewType.SlewSettle)
             {
-                // Application.DoEvents();
+                Thread.Sleep(1);
                 DoEvents();
             }
         }
@@ -568,7 +569,7 @@ namespace ASCOM.SimScope.Telescope
             Scope.GoToPark();
             while (Scope.SlewState == SlewType.SlewPark)
             {
-                //Application.DoEvents();
+                Thread.Sleep(1);
                 DoEvents();
             }
 
@@ -741,9 +742,11 @@ namespace ASCOM.SimScope.Telescope
             Scope.SlewAltAz(Altitude, Azimuth);
             while (Scope.SlewState == SlewType.SlewAltAz || Scope.SlewState == SlewType.SlewSettle)
             {
-                //Application.DoEvents();
+                Thread.Sleep(1);
                 DoEvents();
             }
+
+            DelayInterval();
         }
 
         public void SlewToAltAzAsync(double Azimuth, double Altitude)
@@ -767,13 +770,13 @@ namespace ASCOM.SimScope.Telescope
             CheckParked("SlewToCoordinates");
             CheckTracking(true, "SlewToCoordinates");
             var radec = Coords.RaDec2Topo(RightAscension, Declination);
-            Scope.DecTarget = radec[1];
-            Scope.RaTarget = radec[0];
             Scope.SlewRaDec(radec[0], radec[1]);
-            while (Scope.IsSlewing)
+            while (Scope.SlewState == SlewType.SlewRaDec)
             {
+                Thread.Sleep(1);
                 DoEvents();
             }
+            DelayInterval();
         }
 
         public void SlewToCoordinatesAsync(double RightAscension, double Declination)
@@ -786,8 +789,6 @@ namespace ASCOM.SimScope.Telescope
             CheckParked("SlewToCoordinatesAsync");
             CheckTracking(true, "SlewToCoordinatesAsync");
             var radec = Coords.RaDec2Topo(RightAscension, Declination);
-            Scope.DecTarget = radec[1];
-            Scope.RaTarget = radec[0];
             Scope.SlewRaDec(radec[0], radec[1]);
         }
 
@@ -805,9 +806,10 @@ namespace ASCOM.SimScope.Telescope
             Scope.SlewRaDec(ra, dec);
             while (Scope.SlewState == SlewType.SlewRaDec || Scope.SlewState == SlewType.SlewSettle)
             {
-                //Application.DoEvents();
+                Thread.Sleep(1);
                 DoEvents();
             }
+            DelayInterval();
         }
 
         public void SlewToTargetAsync()
@@ -841,6 +843,7 @@ namespace ASCOM.SimScope.Telescope
             CheckTracking(false, "SyncToAltAz");
             Settings.AtPark = false;
             Scope.SyncToAltAzm(Altitude, Azimuth);
+            DelayInterval();
         }
 
         public void SyncToCoordinates(double RightAscension, double Declination)
@@ -855,6 +858,7 @@ namespace ASCOM.SimScope.Telescope
             Scope.RaTarget = radec[0];
             Settings.AtPark = false;
             Scope.SyncToTargetRaDec();
+            DelayInterval();
         }
 
         public void SyncToTarget()
@@ -866,6 +870,7 @@ namespace ASCOM.SimScope.Telescope
             CheckTracking(true, "SyncToTarget");
             Settings.AtPark = false;
             Scope.SyncToTargetRaDec();
+            DelayInterval();
         }
 
         public double TargetDeclination
@@ -1066,6 +1071,9 @@ namespace ASCOM.SimScope.Telescope
             throw new InvalidOperationException($"{method} is not allowed when tracking is {Scope.Tracking}");
         }
 
+        /// <summary>
+        /// Allow application events to occur while witing for something
+        /// </summary>
         private static void DoEvents()
         {
             var frame = new DispatcherFrame();
@@ -1074,10 +1082,27 @@ namespace ASCOM.SimScope.Telescope
             Dispatcher.PushFrame(frame);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="f"></param>
+        /// <returns></returns>
         private static object ExitFrame(object f)
         {
             ((DispatcherFrame)f).Continue = false;
             return null;
+        }
+
+        /// <summary>
+        /// Allows the UI and Server time to update positions from the mount
+        /// </summary>
+        /// <returns></returns>
+        private static void DelayInterval()
+        {
+            var delay = Settings.UIInterval * 2;
+            var sw = Stopwatch.StartNew();
+            while (sw.Elapsed.TotalMilliseconds < delay) { }
+            sw.Stop();
         }
 
         #endregion

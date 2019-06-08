@@ -330,6 +330,17 @@ namespace SimServer
                 Properties.Server.Default.CanUnpark = value;
             }
         }
+        private static bool _noSyncPastMeridian;
+        public static bool NoSyncPastMeridian
+        {
+            get => _noSyncPastMeridian;
+            private set
+            {
+                if (_noSyncPastMeridian == value) return;
+                _noSyncPastMeridian = value;
+                Properties.Server.Default.NoSyncPastMeridian = value;
+            }
+        }
         private static int _telescopeAxes;
         public static int TelescopeAxes
         {
@@ -823,6 +834,7 @@ namespace SimServer
             CanSyncAltAz = Properties.Server.Default.CanSyncAltAz;
             CanTrackingRates = Properties.Server.Default.CanTrackingRates;
             CanUnpark = Properties.Server.Default.CanUnpark;
+            NoSyncPastMeridian = Properties.Server.Default.NoSyncPastMeridian;
             TelescopeAxes = Properties.Server.Default.TelescopeAxes;
 
             Enum.TryParse<EquatorialCoordinateType>(Properties.Server.Default.EquatorialCoordinateType, true, out var eparse);

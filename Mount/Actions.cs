@@ -39,17 +39,14 @@ namespace Mount
 
         #region Properties
 
-        public MountInfo MountInfo { get; private set; }
-        public string DriverName { get; }
+        internal static bool IsConnected => true;
+        internal MountInfo MountInfo { get; private set; }
 
         #endregion
 
-        public Actions()
+        internal Actions()
         {
             _ioserial = new IOSerial();
-            DriverName = "SimScope";
-            InitializeAxes();
-            LoadDefaults();
         }
 
         #region Action Commands
@@ -60,7 +57,7 @@ namespace Mount
         /// <param name="axis"></param>
         /// <param name="angle"></param>
         /// <returns></returns>
-        public long AngleToStep(AxisId axis, double angle)
+        internal long AngleToStep(AxisId axis, double angle)
         {
             switch (axis)
             {
@@ -77,7 +74,7 @@ namespace Mount
         /// Gat axes in degrees
         /// </summary>
         /// <returns></returns>
-        public double[] AxesDegrees()
+        internal double[] AxesDegrees()
         {
             var x = Convert.ToDouble(_ioserial.Send($"degrees,{AxisId.Axis1}"));
             var y = Convert.ToDouble(_ioserial.Send($"degrees,{AxisId.Axis2}"));
@@ -90,7 +87,7 @@ namespace Mount
         /// </summary>
         /// <param name="axis"></param>
         /// <param name="target"></param>
-        public void AxisGoToTarget(AxisId axis, double target)
+        internal void AxisGoToTarget(AxisId axis, double target)
         {
             _ioserial.Send($"gototarget,{axis},{target}");
         }
@@ -100,7 +97,7 @@ namespace Mount
         /// </summary>
         /// <param name="axis"></param>
         /// <param name="degrees"></param>
-        public void AxisToDegrees(AxisId axis, double degrees)
+        internal void AxisToDegrees(AxisId axis, double degrees)
         {
             _ioserial.Send($"setdegrees,{axis},{degrees}");
         }
@@ -112,7 +109,7 @@ namespace Mount
         /// <param name="guiderate"></param>
         /// <param name="duration"></param>
         /// <returns></returns>
-        public bool AxisPulse(AxisId axis, double guiderate, int duration)
+        internal bool AxisPulse(AxisId axis, double guiderate, int duration)
         {
             var arcsecs = duration / 1000.0 * Principles.Conversions.ArcSec2Deg (Math.Abs(guiderate));
 
@@ -146,7 +143,7 @@ namespace Mount
         /// </summary>
         /// <param name="axis"></param>
         /// <param name="degrees"></param>
-        public void AxisTracking(AxisId axis, double degrees)
+        internal void AxisTracking(AxisId axis, double degrees)
         {
             _ioserial.Send($"tracking,{axis},{degrees}");
         }
@@ -156,7 +153,7 @@ namespace Mount
         /// </summary>
         /// <param name="axis"></param>
         /// <param name="degrees"></param>
-        public void AxisSlew(AxisId axis, double degrees)
+        internal void AxisSlew(AxisId axis, double degrees)
         {
             _ioserial.Send($"slew,{axis},{degrees}");
         }
@@ -185,7 +182,7 @@ namespace Mount
         /// Stop an axis
         /// </summary>
         /// <param name="axis"></param>
-        public void AxisStop(AxisId axis)
+        internal void AxisStop(AxisId axis)
         {
             _ioserial.Send($"stop,{axis}");
         }
@@ -194,7 +191,7 @@ namespace Mount
         /// Get axis in steps
         /// </summary>
         /// <returns></returns>
-        public int[] AxisSteps()
+        internal int[] AxisSteps()
         {
             var x = Convert.ToInt32(_ioserial.Send($"steps,{AxisId.Axis1}"));
             var y = Convert.ToInt32(_ioserial.Send($"steps,{AxisId.Axis2}"));
@@ -207,7 +204,7 @@ namespace Mount
         /// </summary>
         /// <param name="axis"></param>
         /// <param name="degrees"></param>
-        public void HcSlew(AxisId axis, double degrees)
+        internal void HcSlew(AxisId axis, double degrees)
         {
             _ioserial.Send($"hc,{axis},{degrees}");
         }
@@ -215,9 +212,10 @@ namespace Mount
         /// <summary>
         /// Initialize
         /// </summary>
-        private void InitializeAxes()
+        internal void InitializeAxes()
         {
             _ioserial.Send("initialize");
+            LoadDefaults();
         }
 
         /// <summary>
@@ -253,11 +251,38 @@ namespace Mount
         }
 
         /// <summary>
+        /// Get name
+        /// </summary>
+        /// <returns></returns>
+        internal string MountName()
+        {
+            return _ioserial.Send("mountname");
+        }
+
+        /// <summary>
+        /// Gets version
+        /// </summary>
+        /// <returns></returns>
+        internal string MountVersion()
+        {
+            return _ioserial.Send("mountversion");
+        }
+
+        /// <summary>
+        /// Gets Steps Per Revolution
+        /// </summary>
+        /// <returns></returns>
+        internal long Spr()
+        {
+            return Convert.ToInt32(_ioserial.Send("spr"));
+        }
+
+        /// <summary>
         /// Rates from driver
         /// </summary>
         /// <param name="axis"></param>
         /// <param name="degrees"></param>
-        public void Rate(AxisId axis, double degrees)
+        internal void Rate(AxisId axis, double degrees)
         {
             _ioserial.Send($"rate,{axis},{degrees}");
         }
@@ -267,11 +292,18 @@ namespace Mount
         /// </summary>
         /// <param name="axis"></param>
         /// <param name="degrees"></param>
-        public void RateAxis(AxisId axis, double degrees)
+        internal void RateAxis(AxisId axis, double degrees)
         {
             _ioserial.Send($"rateaxis,{axis},{degrees}");
         }
-        
+
+        /// <summary>
+        /// Shutdown
+        /// </summary>
+        internal void Shutdown()
+        {
+            _ioserial.Send("shutdown");
+        }
         #endregion
     }
 }

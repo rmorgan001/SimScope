@@ -21,6 +21,7 @@
 
 using System;
 using System.Threading;
+using Principles;
 
 namespace Mount
 {
@@ -32,7 +33,7 @@ namespace Mount
         #region Fields
 
         private static CancellationTokenSource _ctsMount = new CancellationTokenSource();
-        private const int RevolutionSteps = 12960000;
+        private const long RevolutionSteps = 12960000;
         private const bool CanAxisSlewsIndependent = false;
         private const bool CanAzEq = false;
         private const bool CanDualEncoders = false;
@@ -73,14 +74,24 @@ namespace Mount
         private bool _isGotoSlewingX;
         private bool _isGotoSlewingY;
 
+        private const int _maxrate = 1;
+        // private readonly double SlewSpeedOne = Math.Round(_maxrate * 0.0034, 3);
+        private readonly double SlewSpeedTwo = Math.Round(_maxrate * 0.0068, 3);
+        private readonly double SlewSpeedThree = Math.Round(_maxrate * 0.047, 3);
+        // private readonly double SlewSpeedFour = Math.Round(_maxrate * 0.068, 3);
+        private readonly double SlewSpeedFive = Math.Round(_maxrate * 0.2, 3);
+        // private readonly double SlewSpeedSix = Math.Round(_maxrate * 0.4, 3);
+        private readonly double SlewSpeedSeven = Math.Round(_maxrate * 0.8, 3);
+        //private readonly double SlewSpeedEight = Math.Round(_maxrate * 1.0, 3);
+
         #endregion
 
         #region Properties
 
         private double DegreesX { get; set; }
         private double DegreesY { get; set; }
-        private int StepsX => (int) (DegreesX * 36000);
-        private int StepsY => (int) (DegreesY * 36000);
+        private int StepsX => (int)(DegreesX * 36000);
+        private int StepsY => (int)(DegreesY * 36000);
         private double HcX { get; set; }
         private double HcY { get; set; }
 
@@ -121,13 +132,12 @@ namespace Mount
         /// </summary>
         /// <param name="changeX"></param>
         /// <param name="changeY"></param>
-        /// <param name="seconds"></param>
-        private void CheckStopped(double changeX, double changeY, double seconds)
+        private void CheckStopped(double changeX, double changeY)
         {
             if (Math.Abs(changeX) > 0)
             {
                 _isStoppedX = false;
-                DegreesX += changeX * seconds;
+                DegreesX += changeX;
             }
             else
             {
@@ -137,7 +147,7 @@ namespace Mount
             if (Math.Abs(changeY) > 0)
             {
                 _isStoppedY = false;
-                DegreesY += changeY * seconds;
+                DegreesY += changeY;
             }
             else
             {
@@ -310,6 +320,12 @@ namespace Mount
                     }
 
                     break;
+                case "mountname":
+                    return $"{MountName}";
+                case "mountversion":
+                    return $"{MountVersion}";
+                case "spr":
+                    return $"{RevolutionSteps}";
                 default:
                     return "!";
 
@@ -326,8 +342,8 @@ namespace Mount
         private double GoTo(AxisId axis)
         {
             var change = 0.0;
-            var delta = 0.0;
-            var sign = 1;
+            double delta;
+            int sign;
             switch (axis)
             {
                 case AxisId.Axis1:
@@ -339,11 +355,6 @@ namespace Mount
                     delta = _gotoX - DegreesX;
                     sign = delta < 0 ? -1 : 1;
                     delta = Math.Abs(delta);
-                    if (delta <= .0001)
-                    {
-                        _isGotoSlewingX = false;
-                        delta = 0;
-                    }
                     break;
                 case AxisId.Axis2:
                     if (!_isGotoSlewingY || double.IsNaN(_gotoY))
@@ -354,32 +365,43 @@ namespace Mount
                     delta = _gotoY - DegreesY;
                     sign = delta < 0 ? -1 : 1;
                     delta = Math.Abs(delta);
-                    if (delta <= .0001)
-                    {
-                        _isGotoSlewingY = false;
-                        delta = 0;
-                    }
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(axis), axis, null);
             }
 
             if (delta <= 0) return change;
-            switch (delta)
+
+            if (delta < SlewSpeedTwo)
             {
-                case var _ when delta <= .0001:
-                    change = .00002 * sign;
-                    break;
-                case var _ when delta <= .01 && delta > .0001:
-                    change = .01 * sign;
-                    break;
-                case var _ when delta <= .1 && delta > .01:
-                    change = .1 * sign;
-                    break;
-                case var _ when delta <= 2 && delta > .1:
-                    change = 2 * sign;
-                    break;
-                case var _ when delta > 2:
-                    change = 10 * sign;
-                    break;
+                change = delta * sign;
+                switch (axis)
+                {
+                    case AxisId.Axis1:
+                        _isGotoSlewingX = false;
+                        break;
+                    case AxisId.Axis2:
+                        _isGotoSlewingY = false;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(axis), axis, null);
+                }
+            }
+            else if (delta < SlewSpeedThree * 2)
+            {
+                change = SlewSpeedTwo * sign;
+            }
+            else if (delta < SlewSpeedFive * 2)
+            {
+                change = SlewSpeedThree * sign;
+            }
+            else if (delta < SlewSpeedSeven * 2)
+            {
+                change = SlewSpeedFive * sign;
+            }
+            else
+            {
+                change = SlewSpeedSeven * sign;
             }
 
             return change;
@@ -415,9 +437,9 @@ namespace Mount
             switch (axis)
             {
                 case AxisId.Axis1:
-                    return Principles.Conversions.ArcSec2Deg(_pulseX);
+                    return _pulseX;
                 case AxisId.Axis2:
-                    return Principles.Conversions.ArcSec2Deg(_pulseY);
+                    return _pulseY;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(axis), axis, null);
             }
@@ -434,10 +456,10 @@ namespace Mount
             {
                 case AxisId.Axis1:
                     _isRateAxisSlewingX = Math.Abs(_rateAxisX) > 0;
-                    return _isRateAxisSlewingX ? Principles.Conversions.ArcSec2Deg(_rateAxisX) : 0;
+                    return _isRateAxisSlewingX ? _rateAxisX : 0;
                 case AxisId.Axis2:
                     _isRateAxisSlewingY = Math.Abs(_rateAxisY) > 0;
-                    return _isRateAxisSlewingY ? Principles.Conversions.ArcSec2Deg(_rateAxisY) : 0;
+                    return _isRateAxisSlewingY ? _rateAxisY : 0;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(axis), axis, null);
             }
@@ -454,10 +476,10 @@ namespace Mount
             {
                 case AxisId.Axis1:
                     _isSlewSlewingX = Math.Abs(_slewX) > 0;
-                    return _isSlewSlewingX ? Principles.Conversions.ArcSec2Deg(_slewX) : 0;
+                    return _isSlewSlewingX ? _slewX : 0;
                 case AxisId.Axis2:
                     _isSlewSlewingY = Math.Abs(_slewY) > 0;
-                    return _isSlewSlewingY ? Principles.Conversions.ArcSec2Deg(_slewY) : 0;
+                    return _isSlewSlewingY ? _slewY : 0;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(axis), axis, null);
             }
@@ -467,17 +489,19 @@ namespace Mount
         /// Tracking Movement
         /// </summary>
         /// <param name="axis"></param>
+        /// <param name="interval"></param>
         /// <returns></returns>
-        private double Tracking(AxisId axis)
+        private double Tracking(AxisId axis, double interval)
         {
+
             switch (axis)
             {
                 case AxisId.Axis1:
                     _isTrackingX = Math.Abs(_trackingX) > 0;
-                    return _isTrackingX ? Principles.Conversions.ArcSec2Deg(_trackingX): 0;
+                    return _isTrackingX ? _trackingX * interval : 0;
                 case AxisId.Axis2:
                     _isTrackingY = Math.Abs(_trackingY) > 0;
-                    return _isTrackingY ? Principles.Conversions.ArcSec2Deg(_trackingY): 0;
+                    return _isTrackingY ? _trackingY * interval : 0;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(axis), axis, null);
             }
@@ -493,7 +517,7 @@ namespace Mount
                 if (_ctsMount == null) _ctsMount = new CancellationTokenSource();
                 var ct = _ctsMount.Token;
                 _running = true;
-                _lastUpdateTime = Principles.HiResDateTime.UtcNow;
+                _lastUpdateTime = HiResDateTime.UtcNow;
                 var task = System.Threading.Tasks.Task.Run(() =>
                 {
                     while (!ct.IsCancellationRequested)
@@ -520,8 +544,8 @@ namespace Mount
         /// </summary>
         private void MoveAxes()
         {
-            Thread.Sleep(10);
-            var now = Principles.HiResDateTime.UtcNow;
+            Thread.Sleep(100);
+            var now = HiResDateTime.UtcNow;
             var seconds = (now - _lastUpdateTime).TotalSeconds;
             _lastUpdateTime = now;
             var changeX = 0.0;
@@ -544,8 +568,8 @@ namespace Mount
             changeY += Slew(AxisId.Axis2);
 
             // Tracking
-            changeX += Tracking(AxisId.Axis1);
-            changeY += Tracking(AxisId.Axis2);
+            changeX += Tracking(AxisId.Axis1, seconds);
+            changeY += Tracking(AxisId.Axis2, seconds);
 
             // Hand controls
             changeX += HcX;
@@ -555,7 +579,7 @@ namespace Mount
             changeX += GoTo(AxisId.Axis1);
             changeY += GoTo(AxisId.Axis2);
 
-            CheckStopped(changeX, changeY, seconds);
+            CheckStopped(changeX, changeY);
             CheckSlewing();
         }
 
@@ -592,6 +616,8 @@ namespace Mount
         private static bool Stop()
         {
             _ctsMount?.Cancel();
+            _ctsMount?.Dispose();
+            _ctsMount = null;
             return true;
         }
 
@@ -623,5 +649,5 @@ namespace Mount
                     break;
             }
         }
-    } 
+    }
 }

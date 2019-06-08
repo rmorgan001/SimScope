@@ -28,8 +28,8 @@ namespace Mount
     {
         long Id { get; }
         DateTime CreatedUtc { get; }
-        bool Successful { get; }
-        Exception Exception { get; }
+        bool Successful { get; set; }
+        Exception Exception { get; set; }
         dynamic Result { get; }
         void Execute(Actions actions);
     }
@@ -41,17 +41,17 @@ namespace Mount
     {
         public long Id { get; }
         public DateTime CreatedUtc { get; }
-        public bool Successful { get; private set; }
-        public Exception Exception { get; private set; }
+        public bool Successful { get; set; }
+        public Exception Exception { get; set; }
         public dynamic Result { get; }
         private readonly AxisId _axis;
         private readonly double _rate;
         public CmdRate(long id, AxisId axis, double rate)
         {
             Id = id;
+            CreatedUtc = HiResDateTime.UtcNow;
             _axis = axis;
             _rate = rate;
-            CreatedUtc = HiResDateTime.UtcNow;
             Successful = false;
             Result = null;
             MountQueue.AddCommand(this);
@@ -78,17 +78,17 @@ namespace Mount
     {
         public long Id { get; }
         public DateTime CreatedUtc { get; }
-        public bool Successful { get; private set; }
-        public Exception Exception { get; private set; }
+        public bool Successful { get; set; }
+        public Exception Exception { get; set; }
         public dynamic Result { get; }
         private readonly AxisId _axis;
         private readonly double _rate;
         public CmdRateAxis(long id, AxisId axis, double rate)
         {
             Id = id;
+            CreatedUtc = HiResDateTime.UtcNow;
             _axis = axis;
             _rate = rate;
-            CreatedUtc = HiResDateTime.UtcNow;
             Successful = false;
             Result = null;
             MountQueue.AddCommand(this);
@@ -115,17 +115,17 @@ namespace Mount
     {
         public long Id { get; }
         public DateTime CreatedUtc { get; }
-        public bool Successful { get; private set; }
-        public Exception Exception { get; private set; }
+        public bool Successful { get; set; }
+        public Exception Exception { get; set; }
         public dynamic Result { get; }
         private readonly AxisId _axis;
         private readonly double _rate;
         public CmdAxisSlew(long id, AxisId axis, double rate)
         {
             Id = id;
+            CreatedUtc = HiResDateTime.UtcNow;
             _axis = axis;
             _rate = rate;
-            CreatedUtc = HiResDateTime.UtcNow;
             Successful = false;
             Result = null;
             MountQueue.AddCommand(this);
@@ -151,9 +151,9 @@ namespace Mount
     public class CmdAxesDegrees : IMountCommand
     {
         public long Id { get; }
-        public DateTime CreatedUtc { get; private set; }
-        public bool Successful { get; private set; }
-        public Exception Exception { get; private set; }
+        public DateTime CreatedUtc { get; }
+        public bool Successful { get; set; }
+        public Exception Exception { get; set; }
         public dynamic Result { get; private set; }
 
         public CmdAxesDegrees(long id)
@@ -185,9 +185,9 @@ namespace Mount
     public class CmdAxisSteps : IMountCommand
     {
         public long Id { get; }
-        public DateTime CreatedUtc { get; private set; }
-        public bool Successful { get; private set; }
-        public Exception Exception { get; private set; }
+        public DateTime CreatedUtc { get; }
+        public bool Successful { get; set; }
+        public Exception Exception { get; set; }
         public dynamic Result { get; private set; }
 
         public CmdAxisSteps(long id)
@@ -219,17 +219,17 @@ namespace Mount
     public class CmdAxisStop : IMountCommand
     {
         public long Id { get; }
-        public DateTime CreatedUtc { get; private set; }
-        public bool Successful { get; private set; }
-        public Exception Exception { get; private set; }
-        public dynamic Result { get; private set; }
+        public DateTime CreatedUtc { get; }
+        public bool Successful { get; set; }
+        public Exception Exception { get; set; }
+        public dynamic Result { get; }
         private readonly AxisId _axis;
 
         public CmdAxisStop(long id, AxisId axis)
         {
             Id = id;
-            _axis = axis;
             CreatedUtc = HiResDateTime.UtcNow;
+            _axis = axis;
             Successful = false;
             Result = null;
             MountQueue.AddCommand(this);
@@ -257,17 +257,17 @@ namespace Mount
     {
         public long Id { get; }
         public DateTime CreatedUtc { get; }
-        public bool Successful { get; private set; }
-        public Exception Exception { get; private set; }
+        public bool Successful { get; set; }
+        public Exception Exception { get; set; }
         public dynamic Result { get; }
         private readonly AxisId _axis;
         private readonly double _rate;
         public CmdHcSlew(long id, AxisId axis, double rate)
         {
             Id = id;
+            CreatedUtc = HiResDateTime.UtcNow;
             _axis = axis;
             _rate = rate;
-            CreatedUtc = HiResDateTime.UtcNow;
             Successful = false;
             Result = null;
             MountQueue.AddCommand(this);
@@ -294,17 +294,17 @@ namespace Mount
     {
         public long Id { get; }
         public DateTime CreatedUtc { get; }
-        public bool Successful { get; private set; }
-        public Exception Exception { get; private set; }
+        public bool Successful { get; set; }
+        public Exception Exception { get; set; }
         public dynamic Result { get; }
         private readonly AxisId _axis;
         private readonly double _rate;
         public CmdAxisTracking(long id, AxisId axis, double rate)
         {
             Id = id;
+            CreatedUtc = HiResDateTime.UtcNow;
             _axis = axis;
             _rate = rate;
-            CreatedUtc = HiResDateTime.UtcNow;
             Successful = false;
             Result = null;
             MountQueue.AddCommand(this);
@@ -331,8 +331,8 @@ namespace Mount
     {
         public long Id { get; }
         public DateTime CreatedUtc { get; }
-        public bool Successful { get; private set; }
-        public Exception Exception { get; private set; }
+        public bool Successful { get; set; }
+        public Exception Exception { get; set; }
         public dynamic Result { get; }
         private readonly AxisId _axis;
         private readonly double _targetPosition;
@@ -340,9 +340,9 @@ namespace Mount
         public CmdAxisGoToTarget(long id, AxisId axis, double targetPosition)
         {
             Id = id;
+            CreatedUtc = HiResDateTime.UtcNow;
             _axis = axis;
             _targetPosition = targetPosition;
-            CreatedUtc = HiResDateTime.UtcNow;
             Successful = false;
             Result = null;
             MountQueue.AddCommand(this);
@@ -370,8 +370,8 @@ namespace Mount
     {
         public long Id { get; }
         public DateTime CreatedUtc { get; }
-        public bool Successful { get; private set; }
-        public Exception Exception { get; private set; }
+        public bool Successful { get; set; }
+        public Exception Exception { get; set; }
         public dynamic Result { get; }
         private readonly AxisId _axis;
         private readonly double _degrees;
@@ -379,8 +379,8 @@ namespace Mount
         public CmdAxisToDegrees(long id, AxisId axis, double degrees)
         {
             Id = id;
-            _axis = axis;
             CreatedUtc = HiResDateTime.UtcNow;
+            _axis = axis;
             _degrees = degrees;
             Successful = false;
             Result = null;
@@ -408,17 +408,17 @@ namespace Mount
     public class CmdAxisStatus : IMountCommand
     {
         public long Id { get; }
-        public DateTime CreatedUtc { get; private set; }
-        public bool Successful { get; private set; }
-        public Exception Exception { get; private set; }
+        public DateTime CreatedUtc { get; }
+        public bool Successful { get; set; }
+        public Exception Exception { get; set; }
         public dynamic Result { get; private set; }
         private readonly AxisId _axis;
 
         public CmdAxisStatus(long id, AxisId axis)
         {
             Id = id;
-            _axis = axis;
             CreatedUtc = HiResDateTime.UtcNow;
+            _axis = axis;
             Successful = false;
             MountQueue.AddCommand(this);
         }
@@ -444,9 +444,9 @@ namespace Mount
     public class CmdCapabilities : IMountCommand
     {
         public long Id { get; }
-        public DateTime CreatedUtc { get; private set; }
-        public bool Successful { get; private set; }
-        public Exception Exception { get; private set; }
+        public DateTime CreatedUtc { get; }
+        public bool Successful { get; set; }
+        public Exception Exception { get; set; }
         public dynamic Result { get; private set; }
 
         public CmdCapabilities(long id)
@@ -478,9 +478,9 @@ namespace Mount
     public class CmdAxisPulse : IMountCommand
     {
         public long Id { get; }
-        public DateTime CreatedUtc { get; private set; }
-        public bool Successful { get; private set; }
-        public Exception Exception { get; private set; }
+        public DateTime CreatedUtc { get; }
+        public bool Successful { get; set; }
+        public Exception Exception { get; set; }
         public dynamic Result { get; private set; }
         private readonly AxisId _axis;
         private readonly double _guiderate;
@@ -489,10 +489,10 @@ namespace Mount
         public CmdAxisPulse(long id, AxisId axis, double guiderate, int duration)
         {
             Id = id;
+            CreatedUtc = HiResDateTime.UtcNow;
             _axis = axis;
             _guiderate = guiderate;
             _duration = duration;
-            CreatedUtc = HiResDateTime.UtcNow;
             Successful = false;
             Result = null;
             MountQueue.AddCommand(this);
@@ -514,17 +514,17 @@ namespace Mount
     }
 
     /// <summary>
-    /// 
+    /// Get Mount Name
     /// </summary>
-    public class CmdDriverName : IMountCommand
+    public class CmdMountName : IMountCommand
     {
         public long Id { get; }
-        public DateTime CreatedUtc { get; private set; }
-        public bool Successful { get; private set; }
-        public Exception Exception { get; private set; }
+        public DateTime CreatedUtc { get; }
+        public bool Successful { get; set; }
+        public Exception Exception { get; set; }
         public dynamic Result { get; private set; }
 
-        public CmdDriverName(long id)
+        public CmdMountName(long id)
         {
             Id = id;
             CreatedUtc = HiResDateTime.UtcNow;
@@ -536,7 +536,7 @@ namespace Mount
         {
             try
             {
-                Result = actions.DriverName;
+                Result = actions.MountName();
                 Successful = true;
             }
             catch (Exception e)
@@ -547,16 +547,71 @@ namespace Mount
         }
     }
 
+    /// <summary>
+    /// Get Mount Version
+    /// </summary>
+    public class CmdMountVersion : IMountCommand
+    {
+        public long Id { get; }
+        public DateTime CreatedUtc { get; }
+        public bool Successful { get; set; }
+        public Exception Exception { get; set; }
+        public dynamic Result { get; private set; }
 
+        public CmdMountVersion(long id)
+        {
+            Id = id;
+            CreatedUtc = HiResDateTime.UtcNow;
+            Successful = false;
+            MountQueue.AddCommand(this);
+        }
 
+        public void Execute(Actions actions)
+        {
+            try
+            {
+                Result = actions.MountVersion();
+                Successful = true;
+            }
+            catch (Exception e)
+            {
+                Successful = false;
+                Exception = e;
+            }
+        }
+    }
 
+    /// <summary>
+    /// Gets Steps Per Revolution
+    /// </summary>
+    public class CmdSpr : IMountCommand
+    {
+        public long Id { get; }
+        public DateTime CreatedUtc { get; }
+        public bool Successful { get; set; }
+        public Exception Exception { get; set; }
+        public dynamic Result { get; private set; }
 
+        public CmdSpr(long id)
+        {
+            Id = id;
+            CreatedUtc = HiResDateTime.UtcNow;
+            Successful = false;
+            MountQueue.AddCommand(this);
+        }
 
-
-
-    
-    
-    
-    
-    
+        public void Execute(Actions actions)
+        {
+            try
+            {
+                Result = actions.Spr();
+                Successful = true;
+            }
+            catch (Exception e)
+            {
+                Successful = false;
+                Exception = e;
+            }
+        }
+    }
 }

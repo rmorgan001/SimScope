@@ -201,9 +201,9 @@ namespace Principles
             var h = Math.Sin(c);
             var i = Math.Cos(c);
             var j = -d * g;
-            var k = e * h * g + f * i;
+            var k = -e * h * g + f * i;
             var l = Units.Rad2Hrs(Math.Atan2(j, k));
-            var AltAz2Ra = Ra2Ha(l, lst);
+            var AltAz2Ra = Range.Range24(lst - l);
             return AltAz2Ra;
         }
     }

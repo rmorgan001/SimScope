@@ -41,6 +41,7 @@ namespace Mount
         ErrAlignFailed = 200,		    // Calibration telescope failed
         ErrUnimplement = 300,           // Unimplemented method
         ErrWrongAlignmentData = 400,	// The alignment data is incorect.
+        ErrQueueFailed = 500            // Queue failed
     };
 
     public enum Mountid

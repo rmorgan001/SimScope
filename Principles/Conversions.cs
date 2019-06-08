@@ -86,5 +86,15 @@ namespace Principles
         {
             return arcsec / 3600.0;
         }
+
+        /// <summary>
+        /// Degrees to Arcseconds
+        /// </summary>
+        /// <param name="degrees"></param>
+        /// <returns></returns>
+        public static double Deg2ArcSec(double degrees)
+        {
+            return degrees * 3600.0;
+        }
     }
 }

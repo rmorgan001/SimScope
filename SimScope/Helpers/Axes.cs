@@ -18,13 +18,15 @@ namespace SimServer.Helpers
         internal static double[] AltAzToAxesYX(double[] altAz)
         {
             var axes = altAz;
+            double lst;
             switch (Settings.AlignmentMode)
             {
                 case AlignmentModes.algAltAz:
                     break;
                 case AlignmentModes.algGermanPolar:
-                    axes = Coordinate.AltAz2RaDec(altAz[0], altAz[1], Settings.Latitude, Scope.SiderealTime);
-                    axes[0] = Coordinate.Ra2Ha(axes[0], Scope.SiderealTime) * 15; // ha in degrees
+                    lst = Scope.SiderealTime;
+                    axes = Coordinate.AltAz2RaDec(altAz[0], altAz[1], Settings.Latitude, lst);
+                    axes[0] = Coordinate.Ra2Ha(axes[0], lst) * 15; // ha in degrees
 
                     if (Scope.SouthernHemisphere) axes[1] = -axes[1];
 
@@ -38,8 +40,9 @@ namespace SimServer.Helpers
                     }
                     break;
                 case AlignmentModes.algPolar:
-                    axes = Coordinate.AltAz2RaDec(altAz[0], altAz[1], Settings.Latitude, Scope.SiderealTime);
-                    axes[0] = Coordinate.Ra2Ha(axes[0], Scope.SiderealTime) * 15; // ha in degrees
+                    lst = Scope.SiderealTime;
+                    axes = Coordinate.AltAz2RaDec(altAz[0], altAz[1], Settings.Latitude, lst);
+                    axes[0] = Coordinate.Ra2Ha(axes[0], lst) * 15; // ha in degrees
 
                     if (Scope.SouthernHemisphere) axes[1] = -axes[1];
 
@@ -143,8 +146,9 @@ namespace SimServer.Helpers
         /// convert a RaDec position to an axes positions. 
         /// </summary>
         /// <param name="raDec"></param>
+        /// <param name="preserveSop"></param>
         /// <returns></returns>
-        internal static double[] RaDecToAxesXY(double[] raDec)
+        internal static double[] RaDecToAxesXY(double[] raDec, bool preserveSop = false)
         {
             var axes = raDec;
             switch (Settings.AlignmentMode)
@@ -154,7 +158,7 @@ namespace SimServer.Helpers
                     axes = Coordinate.RaDec2AltAz(axes[0], axes[1], Scope.SiderealTime, Settings.Latitude);
                     return axes;
                 case AlignmentModes.algGermanPolar:
-                    axes[0] = Coordinate.Ra2Ha(axes[0], Scope.SiderealTime) * 15.0;
+                    axes[0] = (Scope.SiderealTime - raDec[0]) * 15.0;
                     if (Scope.SouthernHemisphere) axes[1] = -axes[1];
                     axes[0] = Range.Range360(axes[0]);
 
@@ -165,10 +169,19 @@ namespace SimServer.Helpers
                         axes[1] = 180 - axes[1];
                     }
 
-                    // var newsop = (axes[1] <= 90 && axes[1] >= -90) ? PierSide.pierEast : PierSide.pierWest;
+                    var sop = Scope.SideOfPier;
+                    var newsop = (axes[1] <= 90 && axes[1] >= -90) ? PierSide.pierEast : PierSide.pierWest;
+                    if (preserveSop && newsop != sop)
+                    {
+                        if (Settings.NoSyncPastMeridian)
+                            throw new InvalidOperationException("Sync is not allowed when the mount has tracked past the meridian");
+
+                        axes[0] -= 180;
+                        axes[1] = 180 - axes[1];
+                    }
                     break;
                 case AlignmentModes.algPolar:
-                    axes[0] = Coordinate.Ra2Ha(axes[0], Scope.SiderealTime) * 15.0;
+                    axes[0] = (Scope.SiderealTime - raDec[0]) * 15.0;
                     axes[1] = (Scope.SouthernHemisphere) ? -raDec[1] : raDec[1];
                     break;
                 default:
@@ -187,8 +200,8 @@ namespace SimServer.Helpers
         {
             var a = new[] { axes[0], axes[1] };
             if (!Scope.SouthernHemisphere) return a;
-            a[0] = (180 - axes[0]);
-            a[1] = (axes[1]);
+            a[0] = 180 - axes[0];
+            a[1] = axes[1];
             return a;
         }
 
@@ -201,7 +214,7 @@ namespace SimServer.Helpers
         {
             var a = new[] { axes[0], axes[1] };
             if (!Scope.SouthernHemisphere) return a;
-            a[0] = (axes[0] * -1.0);
+            a[0] = axes[0] * -1.0;
             a[1] = (180 - axes[1]);
             return a;
         }

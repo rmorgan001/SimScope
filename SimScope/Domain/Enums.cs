@@ -2,6 +2,33 @@
 
 namespace SimServer.Domain
 {
+    public enum MountTaskName
+    {
+        AlternatingPpec,
+        DecPulseToGoTo,
+        Encoders,
+        GetOneStepIndicators,
+        LoadDefaults,
+        StopAxes,
+        InstantStopAxes,
+        SetSouthernHemisphere,
+        SyncAxes,
+        SyncTarget,
+        SyncAltAz,
+        MonitorPulse,
+        Pec,
+        PecTraining,
+        Capabilities,
+        SetHomePositions,
+        SetSt4Guiderate,
+        SkySetSnapPort,
+        MountName,
+        GetAxisVersions,
+        GetAxisStrVersions,
+        MountVersion,
+        StepsPerRevolution
+    }
+
     public enum SlewType
     {
         SlewNone,
@@ -11,7 +38,8 @@ namespace SimServer.Domain
         SlewAltAz,
         SlewPark,
         SlewHome,
-        SlewHandpad
+        SlewHandpad,
+        SlewComplete
     }
 
     [Flags]

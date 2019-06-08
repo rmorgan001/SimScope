@@ -862,5 +862,17 @@ namespace SimServer.Properties {
                 this["TelescopeAxes"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool NoSyncPastMeridian {
+            get {
+                return ((bool)(this["NoSyncPastMeridian"]));
+            }
+            set {
+                this["NoSyncPastMeridian"] = value;
+            }
+        }
     }
 }
