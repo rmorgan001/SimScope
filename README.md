@@ -3,7 +3,7 @@ SimScope is a multi-threaded C# ASCOM telescope driver for use with astronomy so
 
 ![Alt text](Docs/SimScope.png?raw=true "SimScope")
 
-You can download the executable version at https://groups.yahoo.com/neo/groups/GreenSwamp/info.  Its located in the files section under the SimScope folder.
+You can download the executable version at https://groups.io/g/GSS/files.  Its located in the files section under the SimScope folder.
 
 ## Solution Info
 
